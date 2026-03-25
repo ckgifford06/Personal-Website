@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Charles Gifford's Personal Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: white;
+    --text: black;
+    --muted: #888;
+    --border: #e0ddd8;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* nav css */
+  nav {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: .04em;
+    transition: color .15s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* hero css */
+  .hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .hero-left { flex: 1; }
+
+  .hero-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    flex-shrink: 0;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(38px, 7vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 strong { font-weight: 500; }
+
+  .hero-desc {
+    max-width: 520px;
+    color: #555;
+    font-size: 15.5px;
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    padding: 10px 20px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: #333; }
+
+  .btn-secondary {
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-secondary:hover { border-color: #999; }
+
+  /* sections css */
+  section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* experience css */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    gap: 12px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-item:first-of-type { border-top: none; padding-top: 0; }
+
+  .exp-role {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  .exp-org {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .exp-desc {
+    font-size: 13.5px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  /* projects css */
+  .project-item {
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .project-item:first-of-type { border-top: none; padding-top: 0; }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .project-name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1px;
+    transition: color .15s, border-color .15s;
+  }
+
+  .project-link:hover { color: var(--text); border-color: var(--text); }
+
+  .project-desc {
+    font-size: 13.5px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  /* skills css */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .skill-item {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #555;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .skill-item::before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+
+  /* interests css */
+  .interests-hint {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    letter-spacing: .04em;
+  }
+
+  .interests-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .int-item {
+    position: relative;
+    display: inline-block;
+  }
+
+  .int-label {
+    cursor: default;
+    border-bottom: 1px solid transparent;
+    transition: border-color .15s;
+    padding-bottom: 1px;
+  }
+
+  .int-item:hover .int-label {
+    border-color: var(--text);
+  }
+
+  .int-sep {
+    color: var(--muted);
+    padding: 0 10px;
+  }
+
+  .int-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 7px 12px;
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .15s;
+    z-index: 10;
+  }
+
+  .int-item:hover .int-tooltip { opacity: 1; }
+
+  /* contact css */
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-row:first-child { border-top: 1px solid var(--border); }
+
+  .contact-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  .contact-val {
+    font-size: 13.5px;
+    color: var(--text);
+    text-decoration: none;
+    transition: color .15s;
+  }
+
+  .contact-val:hover { color: #555; }
+
+  /* footer css */
+  footer { padding: 32px 0; }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 600px) {
+    .hero { flex-direction: column-reverse; gap: 24px; }
+    .hero-photo { width: 90px; height: 90px; }
+    .exp-item { grid-template-columns: 1fr; }
+    .exp-date { text-align: left; }
+    .nav-links { gap: 16px; }
+    footer .container { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="nav-name" href="#">CKG</a>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#interests">Interests</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-label">Computer Science Student — Boston College '28</div>
+      <h1><strong>Charles Gifford</strong></h1>
+      <p class="hero-desc">
+        I am a Computer Science student minoring in Mathematics at Boston College. Looking for internships in the Summer / Fall of 2026, and Summer of 2027.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:ckgifford06@gmail.com" class="btn btn-primary">Get in touch</a>
+        <a href="https://github.com/ckgifford06" target="_blank" class="btn btn-secondary">GitHub</a>
+        <a href="https://linkedin.com/in/charleskgifford" target="_blank" class="btn btn-secondary">LinkedIn</a>
+      </div>
+    </div>
+    <img
+      class="hero-photo"
+      src="https://raw.githubusercontent.com/ckgifford06/Personal-Website/main/IMG_2982.jpeg"
+      alt="Charles Gifford"
+    >
+  </div>
+
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Experience</span>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Teaching Assistant</div>
+        <div class="exp-org">Boston College — Computer Science Department</div>
+        <div class="exp-desc">As a teaching assistant for Professor Griffith's Computer Science 1 class, I support the instruction of Python fundamentals to 50+ students. I lead weekly discussion sections to 20+ students where I answer questions, proctor labs, and debug code. I also hold office hours, grade assignments, and collaborate with Professor Griffith to develop supplemental course materials.</div>
+      </div>
+      <div class="exp-date">Aug 2025 — Present</div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Student Leader & Big Brother</div>
+        <div class="exp-org">BC Bigs — Big Brothers Big Sisters</div>
+        <div class="exp-desc">
+          <strong>As a Big</strong>, I mentor a fifth-grade student from Boston Renaissance Charter School through weekly one-on-one meetings. We have been together for almost four semesters and I am extremely proud to call him my little brother.<br><br>
+          <strong>As a Student Leader</strong>, I facilitate biweekly community meetings, coordinate events such as "Meet the Bigs Day," and act as a liaison between BBBS and Boston College VSLC. Recently, I was selected by leadership to speak with members of BBBS Lone Star about integrating a similar program into Texas A&M, UT Austin, SMU, and TCU.
+        </div>
+      </div>
+      <div class="exp-date">Oct 2024 — Present</div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Coach</div>
+        <div class="exp-org">Wyckoff Family YMCA</div>
+        <div class="exp-desc">During the school year, coached 30+ children per session across basketball, soccer, golf, and baseball. During the summer, helped lead sports programming at Camp Wydaca serving 1,000+ campers daily. Also served on the emergency response team.</div>
+      </div>
+      <div class="exp-date">Jun 2022 — Aug 2025</div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Projects</span>
+    </div>
+
+    <div class="project-item">
+      <div class="project-top">
+        <div class="project-name">W2WSports</div>
+        <a href="https://W2W-Sports.com" target="_blank" class="project-link">W2W-Sports.com</a>
+      </div>
+      <div class="project-desc">Founded a sports platform built to connect athletes and fans. Designed and developed the full stack from the ground up. I love constructive criticism and I am always looking for suggestions.</div>
+      <div class="project-desc"><br></div>
+      <div class="project-desc"><strong>Description: </strong></div>
+      <div class="project-desc"><br></div>
+      <div class="project-desc">W2W Sports (What-2-Watch) is a daily sports matchup ranking platform I built that tells fans exactly what to watch each night across the NBA, NFL, NHL, MLB, CFB, CBB, and EPL. Rather than relying on subjective opinions, W2W ranks every game using a proprietary five-component algorithm that scores each matchup on rivalry, marketability, competitiveness, quality of play, and game importance. The platform pulls live data from the ESPN API, updates scores in real time, and surfaces contextual details like odds, broadcast info, and player leaders all in one place. I built the full stack myself including a Python/Flask backend, Supabase database, and a custom frontend, and deployed it on Vercel with automated daily digest emails sent to subscribers each morning. The site features a Records page tracking the highest-scored games of the season, live upset alerts when underdogs take the lead, and a game leaders section pulling live player stats. Building W2W taught me a lot about creating a real product from scratch, covering everything from API integration and database design to UI/UX, email deliverability, and deployment pipelines. It started as a passion project born out of the frustration of flipping between six different sports apps every night just to figure out what was actually worth watching.</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-top">
+        <div class="project-name">BC BookSwap</div>
+        <a href="https://hacktheheightsproject.onrender.com" target="_blank" class="project-link">hacktheheightsproject.onrender.com</a>
+      </div>
+      <div class="project-desc">Co-founded a peer-to-peer textbook exchange for Boston College students, built at Hack the Heights. Java backend with a JS/HTML/CSS frontend. In active development.</div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Skills</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">Python</div>
+      <div class="skill-item">JavaScript</div>
+      <div class="skill-item">Java</div>
+      <div class="skill-item">HTML / CSS</div>
+      <div class="skill-item">SQL</div>
+      <div class="skill-item">Flask</div>
+      <div class="skill-item">REST APIs</div>
+      <div class="skill-item">Algorithm Design</div>
+      <div class="skill-item">Full Stack Dev</div>
+      <div class="skill-item">Git</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTERESTS SECTION
+       — hover over each item to see a short description
+       — edit the text inside .int-tooltip to customize each blurb
+       ============================================================ -->
+  <section id="interests">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Interests</span>
+    </div>
+    <p class="interests-hint">Hover over each one.</p>
+    <div class="interests-line">
+
+      <span class="int-item">
+        <span class="int-label">New York Knicks</span>
+        <span class="int-tooltip">Lifelong Knicks fan. Brunson signing was everything. This is the year.</span>
+      </span>
+      <span class="int-sep">·</span>
+
+      <span class="int-item">
+        <span class="int-label">Marathon Training</span>
+        <span class="int-tooltip">Started running in Summer 2024. Logged ~500 miles last year. Boston Marathon is the goal.</span>
+      </span>
+      <span class="int-sep">·</span>
+
+      <span class="int-item">
+        <span class="int-label">Sports Analytics</span>
+        <span class="int-tooltip">Where CS and sports meet. Favorite metric: LEBRON (Luck-adjusted player Estimate using a Box prior Regularized ON-OFF).</span>
+      </span>
+      <span class="int-sep">·</span>
+
+      <span class="int-item">
+        <span class="int-label">Premier League</span>
+        <span class="int-tooltip">Lifelong Liverpool fan. Studying abroad there Spring '27. Van Dijk is the best defender alive.</span>
+      </span>
+      <span class="int-sep">·</span>
+
+      <span class="int-item">
+        <span class="int-label">Severance</span>
+        <span class="int-tooltip">Best show on TV. Lumon is watching.</span>
+      </span>
+
+    </div>
+  </section>
+  <!-- ============================================================
+       END INTERESTS SECTION
+       ============================================================ -->
+
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Contact</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <a href="mailto:ckgifford06@gmail.com" class="contact-val">ckgifford06@gmail.com</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Phone</span>
+      <a href="tel:2019838795" class="contact-val">201-983-8795</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">GitHub</span>
+      <a href="https://github.com/ckgifford06" target="_blank" class="contact-val">github.com/ckgifford06</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">LinkedIn</span>
+      <a href="https://linkedin.com/in/charleskgifford" target="_blank" class="contact-val">linkedin.com/in/charleskgifford</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Location</span>
+      <span class="contact-val">Glen Rock, NJ (Home) / Chestnut Hill, MA (School)</span>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="footer-text">Charles K. Gifford</span>
+    <span class="footer-text">Boston College Computer Science 2028</span>
+  </div>
+</footer>
+
+</body>
+</html>
