@@ -301,17 +301,22 @@
   .int-item {
     position: relative;
     display: inline-block;
+    cursor: default;
   }
 
   .int-label {
-    cursor: default;
     border-bottom: 1px solid transparent;
     transition: border-color .15s;
     padding-bottom: 1px;
   }
 
+  /* hover for desktop */
   .int-item:hover .int-label {
     border-color: var(--text);
+  }
+
+  .int-item:hover .int-tooltip {
+    opacity: 1;
   }
 
   .int-sep {
@@ -330,14 +335,22 @@
     padding: 7px 12px;
     font-size: 11px;
     color: var(--muted);
-    white-space: nowrap;
+    white-space: normal;
+    width: max-content;
+    max-width: 260px;
     pointer-events: none;
     opacity: 0;
     transition: opacity .15s;
     z-index: 10;
   }
 
-  .int-item:hover .int-tooltip { opacity: 1; }
+  .int-item.active .int-label {
+    border-color: var(--text);
+  }
+
+  .int-item.active .int-tooltip {
+    opacity: 1;
+  }
 
   /* contact css */
   .contact-row {
@@ -385,9 +398,12 @@
   @media (max-width: 600px) {
     .hero { flex-direction: column-reverse; gap: 24px; }
     .hero-photo { width: 90px; height: 90px; }
+    nav .container { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .nav-links { gap: 14px; flex-wrap: wrap; }
+    .nav-links a { font-size: 11px; }
     .exp-item { grid-template-columns: 1fr; }
     .exp-date { text-align: left; }
-    .nav-links { gap: 16px; }
+    .int-tooltip { font-size: 11px; }
     footer .container { flex-direction: column; gap: 8px; }
   }
 </style>
@@ -396,7 +412,7 @@
 
 <nav>
   <div class="container">
-    <a class="nav-name" href="https://knicks.com">CKG</a>
+    <a class="nav-name" href="#">CKG</a>
     <div class="nav-links">
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
@@ -551,6 +567,7 @@
 
     </div>
   </section>
+
   <section id="contact">
     <div class="section-header">
       <span class="section-num">(5)</span>
@@ -577,6 +594,7 @@
       <span class="contact-val">Glen Rock, NJ (Home) / Chestnut Hill, MA (School)</span>
     </div>
   </section>
+
 </div>
 
 <footer>
@@ -589,8 +607,9 @@
 <script>
   document.querySelectorAll('.int-item').forEach(function(item) {
     item.addEventListener('touchstart', function(e) {
-      e.preventDefault(); 
+      e.preventDefault();
       var isActive = item.classList.contains('active');
+      // close all open tooltips first
       document.querySelectorAll('.int-item.active').forEach(function(el) {
         el.classList.remove('active');
       });
@@ -599,6 +618,7 @@
       }
     });
   });
+
   document.addEventListener('touchstart', function(e) {
     if (!e.target.closest('.int-item')) {
       document.querySelectorAll('.int-item.active').forEach(function(el) {
@@ -607,7 +627,6 @@
     }
   });
 </script>
-  
+
 </body>
 </html>
-
