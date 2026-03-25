@@ -106,53 +106,51 @@
     line-height: 1.7;
   }
 
-  .blog-list {
+  .posts {
+    padding-bottom: 64px;
+  }
+
+  .post-entry {
     padding: 48px 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .post-item {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 24px;
-    padding: 28px 0;
-    border-top: 1px solid var(--border);
-    text-decoration: none;
-    color: inherit;
-    transition: opacity .15s;
+  .post-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
   }
-
-  .post-item:hover { opacity: .7; }
-  .post-item:first-of-type { border-top: none; padding-top: 0; }
 
   .post-date {
     font-family: var(--mono);
     font-size: 11px;
     color: var(--muted);
-    padding-top: 3px;
-    white-space: nowrap;
   }
 
   .post-title {
-    font-size: 15px;
+    font-family: var(--sans);
+    font-size: 22px;
     font-weight: 500;
-    margin-bottom: 6px;
+    letter-spacing: -.01em;
+    line-height: 1.2;
+    margin-bottom: 20px;
   }
 
-  .post-excerpt {
-    font-size: 13.5px;
-    color: #555;
-    line-height: 1.65;
+  .post-body {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.8;
+    max-width: 620px;
   }
 
-  .empty-state {
-    padding: 48px 0;
+  .post-body p { margin-bottom: 16px; }
+  .post-body p:last-child { margin-bottom: 0; }
+
+  footer {
+    padding: 32px 0;
     border-top: 1px solid var(--border);
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
   }
-
-  footer { padding: 32px 0; border-top: 1px solid var(--border); }
 
   footer .container {
     display: flex;
@@ -170,8 +168,6 @@
     nav .container { flex-direction: column; align-items: flex-start; gap: 12px; }
     .nav-links { gap: 14px; flex-wrap: wrap; }
     .nav-links a { font-size: 11px; }
-    .post-item { grid-template-columns: 1fr; gap: 6px; }
-    .post-date { padding-top: 0; }
     footer .container { flex-direction: column; gap: 8px; }
   }
 </style>
@@ -197,18 +193,24 @@
   <div class="page-header">
     <div class="page-label">Writing</div>
     <h1><strong>Blog</strong></h1>
-    <p class="page-desc">Everything Knicks, Yankees, Giants, Future of AI/Coding, and life in general. </p>
+    <p class="page-desc">Everything Knicks, Yankees, Giants, Future of AI/Coding, and life in general.</p>
   </div>
 
-  <div class="blog-list">
-    <!-- future charlie, this is where you will post about the knicks championship (new posts go here lol) -->
-    <a class="post-item" href="/blog/first-post">
-      <div class="post-date">Mar 2026</div>
-      <div>
-        <div class="post-title">Why I built W2WSports</div>
-        <div class="post-excerpt">Every night I'd open six different apps just to figure out what game was worth watching. So I built one that does it for me.</div>
+  <div class="posts">
+
+    <!-- future charlie, this is where you will post about the knicks championship -->
+
+    <div class="post-entry">
+      <div class="post-meta">
+        <span class="post-date">Mar 2026</span>
       </div>
-    </a>
+      <div class="post-title">Why I built W2WSports</div>
+      <div class="post-body">
+        <p>Write your post here. Each paragraph gets its own &lt;p&gt; tag.</p>
+        <p>Add as many paragraphs as you want. Use &lt;strong&gt; for <strong>bold text</strong>.</p>
+      </div>
+    </div>
+
 
   </div>
 
