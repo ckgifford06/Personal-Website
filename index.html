@@ -4,6 +4,13 @@
 <title>Charles Gifford's Personal Website</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Charles (Charlie) Gifford, Computer Science student at Boston College minoring in Mathematics. Data Analyst Intern at the Port Authority of NY/NJ. Seeking Summer 2027 internships.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Charles (Charlie) Gifford">
+<meta property="og:description" content="Computer Science student at Boston College minoring in Mathematics. Data Analyst Intern at the Port Authority of NY/NJ. Seeking Summer 2027 internships.">
+<meta property="og:url" content="https://charliegifford.com">
+<meta property="og:image" content="https://raw.githubusercontent.com/ckgifford06/Personal-Website/main/assets/IMG_2982.jpeg">
+<meta name="twitter:card" content="summary">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -154,6 +161,7 @@
   section {
     padding: 64px 0;
     border-bottom: 1px solid var(--border);
+    scroll-margin-top: 80px;
   }
 
   .section-header {
@@ -181,11 +189,15 @@
     display: grid;
     grid-template-columns: 1fr 160px;
     gap: 12px;
-    padding: 24px 0;
-    border-top: 1px solid var(--border);
+    padding: 0 0 24px;
   }
 
-  .exp-item:first-of-type { border-top: none; padding-top: 0; }
+  .exp-item + .exp-item {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+
+  .exp-item:last-child { padding-bottom: 0; }
 
   .exp-role {
     font-size: 14px;
@@ -216,11 +228,15 @@
 
   /* projects css */
   .project-item {
-    padding: 24px 0;
-    border-top: 1px solid var(--border);
+    padding: 0 0 24px;
   }
 
-  .project-item:first-of-type { border-top: none; padding-top: 0; }
+  .project-item + .project-item {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+
+  .project-item:last-child { padding-bottom: 0; }
 
   .project-top {
     display: flex;
@@ -258,6 +274,7 @@
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    column-gap: 28px;
   }
 
   .skill-item {
@@ -344,6 +361,17 @@
     z-index: 10;
   }
 
+  .int-item:first-child .int-tooltip {
+    left: 0;
+    transform: none;
+  }
+
+  .int-item:last-child .int-tooltip {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+
   .int-item.active .int-label {
     border-color: var(--text);
   }
@@ -361,7 +389,7 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .contact-row:first-child { border-top: 1px solid var(--border); }
+  .section-header + .contact-row { border-top: 1px solid var(--border); }
 
   .contact-label {
     font-family: var(--mono);
@@ -396,6 +424,7 @@
   }
 
   @media (max-width: 600px) {
+    section { scroll-margin-top: 130px; }
     .hero { flex-direction: column-reverse; gap: 24px; }
     .hero-photo { width: 90px; height: 90px; }
     nav .container { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -403,8 +432,13 @@
     .nav-links a { font-size: 11px; }
     .exp-item { grid-template-columns: 1fr; }
     .exp-date { text-align: left; }
-    .int-tooltip { font-size: 11px; }
+    .int-tooltip { font-size: 11px; max-width: 220px; }
     footer .container { flex-direction: column; gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
   }
 </style>
 </head>
@@ -431,13 +465,13 @@
       <div class="hero-label">Computer Science Student — Boston College '28</div>
       <h1><strong>Charles (Charlie) Gifford</strong></h1>
       <p class="hero-desc">
-        I am a Computer Science student minoring in Mathematics at Boston College. Incoming Data Analyst Intern at the NY/NJ Port Authority. Looking for <strong>Summer 2027</strong> internships.
+        I am a Computer Science student minoring in Mathematics at Boston College. Data Analyst Intern at the NY/NJ Port Authority. Looking for <strong>Summer 2027</strong> internships.
       </p>
       <div class="hero-links">
         <a href="mailto:ckgifford06@gmail.com" class="btn btn-primary">Get in touch</a>
-        <a href="https://raw.githubusercontent.com/ckgifford06/Personal-Website/main/assets/CharlesGiffordResume.pdf" target="_blank" class="btn btn-secondary">Resume</a>
-        <a href="https://github.com/ckgifford06" target="_blank" class="btn btn-secondary">GitHub</a>
-        <a href="https://linkedin.com/in/charleskgifford" target="_blank" class="btn btn-secondary">LinkedIn</a>
+        <a href="https://raw.githubusercontent.com/ckgifford06/Personal-Website/main/assets/CharlesGiffordResume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume</a>
+        <a href="https://github.com/ckgifford06" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+        <a href="https://linkedin.com/in/charleskgifford" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
       </div>
     </div>
     <img
@@ -452,20 +486,21 @@
       <span class="section-num">(1)</span>
       <span class="section-title">Experience</span>
     </div>
+
     <div class="exp-item">
       <div>
         <div class="exp-role">Boston College</div>
         <div class="exp-org">B.S. Computer Science — Minor: Mathematics</div>
         <div class="exp-desc">
-          <strong>Relevant Coursework:</strong> 
-          Computer Science I & II, Computer Organization, Logic & Computation, Computer Systems, Randomness and Computation,
+          <strong>Relevant Coursework:</strong>
+          Computer Science I &amp; II, Computer Organization, Logic &amp; Computation, Computer Systems, Randomness and Computation,
           Calculus II, Linear Algebra, Algorithms (IP), Software Engineering (IP), Introduction to Abstract Mathematics (IP), Multivariable Calculus (IP),
           (IP = In Progress F2026 semester)
         </div>
       </div>
       <div class="exp-date">Expected May 2028</div>
     </div>
-      
+
     <div class="exp-item">
       <div>
         <div class="exp-role">Data Analytics Intern</div>
@@ -486,25 +521,27 @@
 
     <div class="exp-item">
       <div>
-        <div class="exp-role">Student Leader & Big Brother</div>
+        <div class="exp-role">Student Leader &amp; Big Brother</div>
         <div class="exp-org">BC Bigs — Big Brothers Big Sisters</div>
         <div class="exp-desc">
           <strong>As a Big</strong>, I mentor a fifth-grade student from Boston Renaissance Charter School through weekly one-on-one meetings. We have been together for almost four semesters and I am extremely proud to call him my little brother.<br><br>
-          <strong>As a Student Leader</strong>, I facilitate biweekly community meetings, coordinate events such as "Meet the Bigs Day," and act as a liaison between BBBS and Boston College VSLC. Recently, I was selected by leadership to speak with members of BBBS Lone Star about integrating a similar program into Texas A&M, UT Austin, SMU, and TCU.
+          <strong>As a Student Leader</strong>, I facilitate biweekly community meetings, coordinate events such as "Meet the Bigs Day," and act as a liaison between BBBS and Boston College VSLC. Recently, I was selected by leadership to speak with members of BBBS Lone Star about integrating a similar program into Texas A&amp;M, UT Austin, SMU, and TCU.
         </div>
       </div>
       <div class="exp-date">Oct 2024 — Present</div>
     </div>
-    </section>
+  </section>
+
   <section id="projects">
     <div class="section-header">
       <span class="section-num">(2)</span>
       <span class="section-title">Projects</span>
     </div>
-        <div class="project-item">
+
+    <div class="project-item">
       <div class="project-top">
         <div class="project-name">W2WSports</div>
-        <a href="https://W2W-Sports.com" target="_blank" class="project-link">W2W-Sports.com</a>
+        <a href="https://W2W-Sports.com" target="_blank" rel="noopener" class="project-link">W2W-Sports.com</a>
       </div>
       <div class="project-desc">Founded a sports website that tells fans What to watch. Designed and developed the full stack from the ground up. I love constructive criticism and I am always looking for suggestions.</div>
       <div class="project-desc"><br></div>
@@ -516,13 +553,11 @@
     <div class="project-item">
       <div class="project-top">
         <div class="project-name">BC BookSwap</div>
-        <a href="https://hacktheheightsproject.onrender.com" target="_blank" class="project-link">hacktheheightsproject.onrender.com</a>
+        <a href="https://hacktheheightsproject.onrender.com" target="_blank" rel="noopener" class="project-link">hacktheheightsproject.onrender.com</a>
       </div>
       <div class="project-desc">Co-founded a peer-to-peer textbook exchange for Boston College students, built at Hack the Heights. Java backend with a JS/HTML/CSS frontend. In active development.</div>
     </div>
   </section>
-
-
 
   <section id="skills">
     <div class="section-header">
@@ -548,12 +583,12 @@
       <span class="section-num">(4)</span>
       <span class="section-title">Interests</span>
     </div>
-    <p class="interests-hint">Hover over each one.</p>
+    <p class="interests-hint">Hover or tap each one.</p>
     <div class="interests-line">
 
       <span class="int-item">
         <span class="int-label">New York Knicks</span>
-        <span class="int-tooltip">Lifelong Knicks & Villanova fan. Villanova Knicks is literally a fever dream. This is the year.</span>
+        <span class="int-tooltip">Lifelong Knicks &amp; Villanova fan. Villanova Knicks is literally a fever dream. This is the year.</span>
       </span>
       <span class="int-sep">·</span>
 
@@ -598,11 +633,11 @@
     </div>
     <div class="contact-row">
       <span class="contact-label">GitHub</span>
-      <a href="https://github.com/ckgifford06" target="_blank" class="contact-val">github.com/ckgifford06</a>
+      <a href="https://github.com/ckgifford06" target="_blank" rel="noopener" class="contact-val">github.com/ckgifford06</a>
     </div>
     <div class="contact-row">
       <span class="contact-label">LinkedIn</span>
-      <a href="https://linkedin.com/in/charleskgifford" target="_blank" class="contact-val">linkedin.com/in/charleskgifford</a>
+      <a href="https://linkedin.com/in/charleskgifford" target="_blank" rel="noopener" class="contact-val">linkedin.com/in/charleskgifford</a>
     </div>
     <div class="contact-row">
       <span class="contact-label">Location</span>
@@ -621,10 +656,9 @@
 
 <script>
   document.querySelectorAll('.int-item').forEach(function(item) {
-    item.addEventListener('touchstart', function(e) {
-      e.preventDefault();
+    item.addEventListener('click', function(e) {
+      e.stopPropagation();
       var isActive = item.classList.contains('active');
-      // close all open tooltips first
       document.querySelectorAll('.int-item.active').forEach(function(el) {
         el.classList.remove('active');
       });
@@ -634,12 +668,10 @@
     });
   });
 
-  document.addEventListener('touchstart', function(e) {
-    if (!e.target.closest('.int-item')) {
-      document.querySelectorAll('.int-item.active').forEach(function(el) {
-        el.classList.remove('active');
-      });
-    }
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.int-item.active').forEach(function(el) {
+      el.classList.remove('active');
+    });
   });
 </script>
 
