@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Gallery — Charles Gifford</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: white;
+    --text: black;
+    --muted: #888;
+    --border: #e0ddd8;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  nav {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: .04em;
+    transition: color .15s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+
+  .page-header {
+    padding: 72px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-family: var(--sans);
+    font-size: clamp(32px, 6vw, 48px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 strong { font-weight: 500; }
+
+  .page-desc {
+    color: #555;
+    font-size: 15px;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .gallery {
+    padding: 48px 0 64px;
+    column-count: 3;
+    column-gap: 12px;
+  }
+
+  .shot {
+    break-inside: avoid;
+    margin-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .shot img {
+    width: 100%;
+    display: block;
+    transition: opacity .2s;
+  }
+
+  .shot:hover img { opacity: .82; }
+
+  .shot .cap {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 10px 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .04em;
+    color: white;
+    background: linear-gradient(transparent, rgba(0,0,0,.55));
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .shot:hover .cap { opacity: 1; }
+
+  .empty {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding: 48px 0 64px;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 82vh;
+    display: block;
+  }
+
+  .lightbox .lb-cap {
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: #ccc;
+  }
+
+  .lightbox .lb-close {
+    position: absolute;
+    top: 22px;
+    right: 26px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #ccc;
+    cursor: pointer;
+    background: none;
+    border: none;
+    letter-spacing: .04em;
+  }
+
+  .lightbox .lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 12px 18px;
+  }
+
+  .lightbox .lb-prev { left: 8px; }
+  .lightbox .lb-next { right: 8px; }
+  .lightbox .lb-close:hover,
+  .lightbox .lb-nav:hover { color: white; }
+
+  footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 720px) {
+    .gallery { column-count: 2; }
+  }
+
+  @media (max-width: 600px) {
+    nav .container { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .nav-links { gap: 14px; flex-wrap: wrap; }
+    .nav-links a { font-size: 11px; }
+    footer .container { flex-direction: column; gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="nav-name" href="/">CKG</a>
+    <div class="nav-links">
+      <a href="/#experience">Experience</a>
+      <a href="/#projects">Projects</a>
+      <a href="/#skills">Skills</a>
+      <a href="/#interests">Interests</a>
+      <a href="/#contact">Contact</a>
+      <a href="/blog">Blog</a>
+      <a href="/gallery" class="active">Gallery</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1><strong>Gallery</strong></h1>
+    <p class="page-desc">Photos to show a little bit of my personal life!</p>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">CLOSE</button>
+  <button class="lb-nav lb-prev" id="lbPrev">&#8592;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext">&#8594;</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+  const photos = [
+    { src: "assets/nothingyet.jpg", cap: "caption" },
+
+  ];
+
+  const gallery = document.getElementById("gallery");
+  const lightbox = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg");
+  const lbCap = document.getElementById("lbCap");
+  let current = 0;
+
+  if (photos.length === 0) {
+    gallery.outerHTML = '<p class="empty">No photos yet.</p>';
+  } else {
+    photos.forEach((p, i) => {
+      const div = document.createElement("div");
+      div.className = "shot";
+      div.innerHTML = '<img src="' + p.src + '" alt="' + p.cap + '" loading="lazy">' +
+        (p.cap ? '<div class="cap">' + p.cap + '</div>' : '');
+      div.addEventListener("click", () => open(i));
+      gallery.appendChild(div);
+    });
+  }
+
+  function open(i) {
+    current = i;
+    lbImg.src = photos[i].src;
+    lbCap.textContent = photos[i].cap || "";
+    lightbox.classList.add("open");
+  }
+
+  function close() {
+    lightbox.classList.remove("open");
+  }
+
+  function step(dir) {
+    current = (current + dir + photos.length) % photos.length;
+    lbImg.src = photos[current].src;
+    lbCap.textContent = photos[current].cap || "";
+  }
+
+  document.getElementById("lbClose").addEventListener("click", close);
+  document.getElementById("lbPrev").addEventListener("click", (e) => { e.stopPropagation(); step(-1); });
+  document.getElementById("lbNext").addEventListener("click", (e) => { e.stopPropagation(); step(1); });
+  lightbox.addEventListener("click", (e) => { if (e.target === lightbox) close(); });
+
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+</script>
+
+</body>
+</html>
