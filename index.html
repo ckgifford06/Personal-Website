@@ -601,7 +601,7 @@
 
       <span class="int-item">
         <span class="int-label">Marathon Training</span>
-        <span class="int-tooltip">Started running in Summer 2024. Logged ~500 miles last year. My goal is the 2028 Boston Marathon.</span>
+        <span class="int-tooltip">Started running in Summer 2024. Logged ~500 miles last year.<span id="ytd-miles"></span> My goal is the 2028 Boston Marathon.</span>
       </span>
       <span class="int-sep">·</span>
 
@@ -669,6 +669,17 @@
       }
     });
   });
+
+  fetch('/api/strava')
+    .then(function(res) { return res.ok ? res.json() : null; })
+    .then(function(data) {
+      if (data && typeof data.ytd_miles === 'number') {
+        var year = new Date().getFullYear();
+        document.getElementById('ytd-miles').textContent =
+          ' ' + data.ytd_miles.toLocaleString() + ' miles so far in ' + year + '.';
+      }
+    })
+    .catch(function() {});
 
   document.addEventListener('click', function() {
     document.querySelectorAll('.int-item.active').forEach(function(el) {
